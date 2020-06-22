@@ -246,79 +246,79 @@ Player::Player(const string& name, int playerNo, int totalPlayers) : GenericPlay
     switch (playerNo)
     {
     case 0:
-        this->pos = { 0.1f, -0.5f, 0.0f };
+        this->pos = { 0.4f, -0.5f, 0.0f };
         this->vel = { 0.0f, 0.0f, 0.0f };
         break;
     case 1:
         if (totalPlayers < 4)
         {
-            this->pos = { 0.3f, -0.5f, 1.2f };
+            this->pos = { 0.7f, -0.5f, 1.2f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else if (totalPlayers < 6) 
         {
-            this->pos = { 0.1f, -0.5f, 0.5f };
+            this->pos = { 0.5f, -0.5f, 0.7f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else
         {
-            this->pos = { 0.1f, -0.5f, 0.5f };
+            this->pos = { 0.5f, -0.5f, 0.7f };
             this->vel = { 0.2f, -0.5f, 0.0f };
             break;
         }
     case 2:
         if (totalPlayers < 4)
         {
-            this->pos = { 0.3f, -0.5f, -1.2f };
+            this->pos = { 0.7f, -0.5f, -1.2f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else if (totalPlayers < 6)
         {
-            this->pos = { 0.3f, -0.5f, 1.2f };
+            this->pos = { 0.7f, -0.5f, 1.2f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else
         {
-            this->pos = { 0.2f, -0.5f, 0.9f };
+            this->pos = { 0.6f, -0.5f, 1.0f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
     case 3:
         if (totalPlayers < 6)
         {
-            this->pos = { 0.3f, -0.5f, -1.2f };
+            this->pos = { 0.7f, -0.5f, -1.2f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else
         {
-            this->pos = { 0.3f, -0.5f, 1.2f };
+            this->pos = { 0.7f, -0.5f, 1.2f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
     case 4:
         if (totalPlayers < 6)
         {
-            this->pos = { 0.1f, -0.5f, -0.5f };
+            this->pos = { 0.5f, -0.5f, -0.7f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else
         {
-            this->pos = { 0.3f, -0.5f, -1.2f };
+            this->pos = { 0.7f, -0.5f, -1.2f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
     case 5:
-        this->pos = { 0.2f, -0.5f, -0.9f };
+        this->pos = { 0.6f, -0.5f, -1.0f };
         this->vel = { 0.0f, 0.0f, 0.0f };
         break;
     case 6:
-        this->pos = { 0.1f, -0.5f, -0.5f };
+        this->pos = { 0.5f, -0.5f, -0.7f };
         this->vel = { 0.0f, 0.0f, 0.0f };
         break;
     default:
@@ -587,11 +587,11 @@ int main()
     // Audio Initialization
     AudioManager audio;
     audio.SetMasterVolume(1.0f);
-    audio.SetSongsVolume(0.1f);
+    audio.SetSongsVolume(0.6f);
     audio.SetSFXsVolume(1.0f);
 
     // Load Music and SFX
-    audio.LoadSong("media/sounds/songs/Casino_Music.ogg");
+    audio.LoadSong("media/sounds/songs/Casino_Ambience.ogg");
     audio.LoadSFX("media/sounds/SFX/Card_Dealt.ogg");
     audio.LoadSFX("media/sounds/SFX/Card_Dealt_2.ogg");
     audio.LoadSFX("media/sounds/SFX/Card_Shuffle_Full.ogg");
@@ -608,7 +608,7 @@ int main()
         getline(cin, inputLine);
     }
 
-    audio.PlaySong("media/sounds/songs/Casino_Music.ogg");
+    audio.PlaySong("media/sounds/songs/Casino_Ambience.ogg");
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     audio.Update(std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count());
     begin = std::chrono::steady_clock::now();

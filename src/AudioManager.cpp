@@ -27,6 +27,14 @@ AudioManager::AudioManager() : currentSong(0), fade(FADE_NONE) {
 	FMOD_VECTOR up = { 0.0f, 1.0f, 0.0f };
 	system->set3DListenerAttributes(0, &pos, &vel, &forward, &up);
 
+	// Set up a reverb zone
+	FMOD::Reverb3D* reverb;
+	system->createReverb3D(&reverb);
+	FMOD_REVERB_PROPERTIES properties = FMOD_PRESET_AUDITORIUM;
+	reverb->setProperties(&properties);
+	FMOD_VECTOR position = { 0.0f, 0.0f, 0.0f };
+	reverb->set3DAttributes(&position, 10.0f, 20.0f);
+
 	// Create channels groups for each category
 	system->getMasterChannelGroup(&master);
 	for (int i = 0; i < CATEGORY_COUNT; ++i) {
@@ -36,6 +44,12 @@ AudioManager::AudioManager() : currentSong(0), fade(FADE_NONE) {
 	// Set up modes for each category
 	modes[CATEGORY_SFX] = FMOD_3D;
 	modes[CATEGORY_SONG] = FMOD_DEFAULT | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL;
+	
+/*	// Experimental
+	FMOD::DSP* dsp_convolution_reverb;
+	system->createDSPByType(FMOD_DSP_TYPE_CONVOLUTIONREVERB, &dsp_convolution_reverb);
+	groups[CATEGORY_SFX]->addDSP(0, dsp_convolution_reverb);
+*/
 
 	// Seed random number generator for SFXs
 	srand(time(0));

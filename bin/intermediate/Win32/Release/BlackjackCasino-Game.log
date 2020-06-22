@@ -1,6 +1,4 @@
-﻿  AudioManager.cpp
-C:\dev\BlackjackCasino-Game\src\AudioManager.cpp(41,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-  BlackjackGame.cpp
+﻿  BlackjackGame.cpp
 C:\dev\BlackjackCasino-Game\src\BlackjackGame.cpp(413,19): warning C4244: 'inicializando': conversión de '_Rep' a 'unsigned int'; posible pérdida de datos
           with
           [
@@ -17,8 +15,8 @@ C:\dev\BlackjackCasino-Game\src\BlackjackGame.cpp(656,94): warning C4244: 'argum
               _Rep=__int64
           ]
   Generando código
-  3 of 558 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  1 of 558 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    16 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
   BlackjackCasino-Game.vcxproj -> C:\dev\BlackjackCasino-Game\bin\Win32\Release\BlackjackCasino-Game.exe
