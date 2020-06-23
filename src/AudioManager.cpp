@@ -20,21 +20,6 @@ AudioManager::AudioManager() : currentSong(0), fade(FADE_NONE) {
 	FMOD::System_Create(&system);
 	system->init(100, FMOD_INIT_NORMAL, 0);
 
-	// Set 3D listener properties
-	FMOD_VECTOR pos = { 0.0f, 0.0f, 0.0f };
-	FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f };
-	FMOD_VECTOR forward = { 1.0f, 0.0f, 0.0f };
-	FMOD_VECTOR up = { 0.0f, 1.0f, 0.0f };
-	system->set3DListenerAttributes(0, &pos, &vel, &forward, &up);
-
-	// Set up a reverb zone
-	FMOD::Reverb3D* reverb;
-	system->createReverb3D(&reverb);
-	FMOD_REVERB_PROPERTIES properties = FMOD_PRESET_AUDITORIUM;
-	reverb->setProperties(&properties);
-	FMOD_VECTOR position = { 0.0f, 0.0f, 0.0f };
-	reverb->set3DAttributes(&position, 10.0f, 20.0f);
-
 	// Create channels groups for each category
 	system->getMasterChannelGroup(&master);
 	for (int i = 0; i < CATEGORY_COUNT; ++i) {
@@ -182,4 +167,16 @@ void AudioManager::SetSFXsVolume(float volume) {
 }
 void AudioManager::SetSongsVolume(float volume) {
 	groups[CATEGORY_SONG]->setVolume(volume);
+}
+
+void AudioManager::SetAudioListener(FMOD_VECTOR& position, FMOD_VECTOR& velocity, FMOD_VECTOR& forward, FMOD_VECTOR& up)
+{
+	system->set3DListenerAttributes(0, &position, &velocity, &forward, &up);
+}
+
+void AudioManager::SetReverb(FMOD_REVERB_PROPERTIES &properties, FMOD_VECTOR &position)
+{
+	system->createReverb3D(&reverb);
+	reverb->setProperties(&properties);
+	reverb->set3DAttributes(&position, 10.0f, 20.0f);
 }

@@ -20,6 +20,8 @@ public:
 	void SetMasterVolume(float volume);
 	void SetSFXsVolume(float volume);
 	void SetSongsVolume(float volume);
+	void SetAudioListener(FMOD_VECTOR &position, FMOD_VECTOR &velocity, FMOD_VECTOR &forward, FMOD_VECTOR &up);
+	void SetReverb(FMOD_REVERB_PROPERTIES &properties, FMOD_VECTOR &position);
 
 private:
 	typedef std::map<std::string, FMOD::Sound*> SoundMap;
@@ -34,6 +36,7 @@ private:
 	FMOD_MODE modes[CATEGORY_COUNT];
 
 	FMOD::Channel* currentSong;
+	FMOD::Reverb3D* reverb;
 	std::string currentSongPath;
 	std::string nextSongPath;
 	enum FadeState { FADE_NONE, FADE_IN, FADE_OUT };

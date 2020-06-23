@@ -4,19 +4,19 @@ C:\dev\BlackjackCasino-Game\src\BlackjackGame.cpp(413,19): warning C4244: 'inici
           [
               _Rep=std::chrono::system_clock::rep
           ]
-C:\dev\BlackjackCasino-Game\src\BlackjackGame.cpp(613,90): warning C4244: 'argumento': conversión de '_Rep' a 'float'; posible pérdida de datos
+C:\dev\BlackjackCasino-Game\src\BlackjackGame.cpp(628,90): warning C4244: 'argumento': conversión de '_Rep' a 'float'; posible pérdida de datos
           with
           [
               _Rep=__int64
           ]
-C:\dev\BlackjackCasino-Game\src\BlackjackGame.cpp(656,94): warning C4244: 'argumento': conversión de '_Rep' a 'float'; posible pérdida de datos
+C:\dev\BlackjackCasino-Game\src\BlackjackGame.cpp(671,94): warning C4244: 'argumento': conversión de '_Rep' a 'float'; posible pérdida de datos
           with
           [
               _Rep=__int64
           ]
   Generando código
-  1 of 558 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  2 of 560 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    16 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
   BlackjackCasino-Game.vcxproj -> C:\dev\BlackjackCasino-Game\bin\Win32\Release\BlackjackCasino-Game.exe

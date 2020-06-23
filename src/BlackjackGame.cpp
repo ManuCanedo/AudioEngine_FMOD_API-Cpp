@@ -113,7 +113,7 @@ public:
 
     void Populate();
     void Shuffle();
-    void Deal(Hand& aHand);
+    void Deal(Hand& aHand, AudioManager& audio);
     void AdditionalCards(GenericPlayer& aGenericPlayer, AudioManager& audio);
 };
 
@@ -246,79 +246,79 @@ Player::Player(const string& name, int playerNo, int totalPlayers) : GenericPlay
     switch (playerNo)
     {
     case 0:
-        this->pos = { 0.4f, -0.5f, 0.0f };
+        this->pos = { -0.7f, 0.0f, 0.0f };
         this->vel = { 0.0f, 0.0f, 0.0f };
         break;
     case 1:
         if (totalPlayers < 4)
         {
-            this->pos = { 0.7f, -0.5f, 1.2f };
+            this->pos = { -0.4f, 0.0f, 0.9f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else if (totalPlayers < 6) 
         {
-            this->pos = { 0.5f, -0.5f, 0.7f };
+            this->pos = { -0.6f, -0.5f, 0.4f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else
         {
-            this->pos = { 0.5f, -0.5f, 0.7f };
+            this->pos = { -0.6f, -0.5f, 0.4f };
             this->vel = { 0.2f, -0.5f, 0.0f };
             break;
         }
     case 2:
         if (totalPlayers < 4)
         {
-            this->pos = { 0.7f, -0.5f, -1.2f };
+            this->pos = { -0.4f, -0.5f, -0.9f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else if (totalPlayers < 6)
         {
-            this->pos = { 0.7f, -0.5f, 1.2f };
+            this->pos = { -0.4f, -0.5f, 0.9f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else
         {
-            this->pos = { 0.6f, -0.5f, 1.0f };
+            this->pos = { -0.6f, -0.5f, 0.7f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
     case 3:
         if (totalPlayers < 6)
         {
-            this->pos = { 0.7f, -0.5f, -1.2f };
+            this->pos = { -0.4f, -0.5f, -0.9f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else
         {
-            this->pos = { 0.7f, -0.5f, 1.2f };
+            this->pos = { -0.4f, -0.5f, 0.9f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
     case 4:
         if (totalPlayers < 6)
         {
-            this->pos = { 0.5f, -0.5f, -0.7f };
+            this->pos = { -0.6f, -0.5f, -0.4f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
         else
         {
-            this->pos = { 0.7f, -0.5f, -1.2f };
+            this->pos = { -0.4f, -0.5f, -0.9f };
             this->vel = { 0.0f, 0.0f, 0.0f };
             break;
         }
     case 5:
-        this->pos = { 0.6f, -0.5f, -1.0f };
+        this->pos = { -0.6f, -0.5f, -0.7f };
         this->vel = { 0.0f, 0.0f, 0.0f };
         break;
     case 6:
-        this->pos = { 0.5f, -0.5f, -0.7f };
+        this->pos = { -0.6f, -0.5f, -0.4f };
         this->vel = { 0.0f, 0.0f, 0.0f };
         break;
     default:
@@ -414,7 +414,7 @@ void Deck::Shuffle()
     shuffle(m_Cards.begin(), m_Cards.end(), default_random_engine(seed));
 }
 
-void Deck::Deal(Hand& aHand)
+void Deck::Deal(Hand& aHand, AudioManager& audio)
 {
     if (!(m_Cards.empty()))
     {
@@ -423,7 +423,11 @@ void Deck::Deal(Hand& aHand)
     }
     else
     {
-        cout << "Out of cards on current deck. I using the next one.\n";
+        cout << "\n*Current deck is out of cards. The dealer starts to shuffle a new new deck*\n\n";
+        FMOD_VECTOR dealerPos = { 0.0f, 0.0f, 0.0f };
+        FMOD_VECTOR dealerVel = { 0.0f, 0.0f, 0.0f };
+        audio.PlaySFX("media/sounds/SFX/Card_Shuffle_Full.ogg", 0.4f, 0.5f, 2.0f, 4.0f, dealerPos, dealerVel);
+        this_thread::sleep_for(chrono::seconds(6));
         Populate();
     }
 }
@@ -435,8 +439,8 @@ void Deck::AdditionalCards(GenericPlayer& aGenericPlayer, AudioManager& audio)
     //wants another hit
     while (!(aGenericPlayer.IsBusted()) && aGenericPlayer.IsHitting())
     {
-        audio.PlaySFX("media/sounds/SFX/Card_Dealt.ogg", 0.2f, 0.4f, -2.0f, 2.0f, aGenericPlayer.pos, aGenericPlayer.vel);
-        Deal(aGenericPlayer);
+        audio.PlaySFX("media/sounds/SFX/Card_Dealt.ogg", 0.2f, 0.4f, -6.0f, 6.0f, aGenericPlayer.pos, aGenericPlayer.vel);
+        Deal(aGenericPlayer, audio);
         cout << aGenericPlayer << endl;
 
         if (aGenericPlayer.IsBusted())
@@ -471,7 +475,7 @@ void Game::Play(AudioManager& audio)
 
 
     //deal initial 2 cards to everyone
-    FMOD_VECTOR dealerPos = { 1.2f, -0.5f, 0.0f };
+    FMOD_VECTOR dealerPos = { 0.0f, 0.0f, 0.0f };
     FMOD_VECTOR dealerVel = { 0.0f, 0.0f, 0.0f };
     audio.PlaySFX("media/sounds/SFX/Card_Shuffle_Full.ogg", 0.4f, 0.5f, -1.4f, 1.4f, dealerPos, dealerVel);
     this_thread::sleep_for(chrono::seconds(6));
@@ -481,9 +485,9 @@ void Game::Play(AudioManager& audio)
     {
         for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); ++pPlayer)
         {
-            m_Deck.Deal(*pPlayer);
+            m_Deck.Deal(*pPlayer, audio);
         }
-        m_Deck.Deal(m_House);
+        m_Deck.Deal(m_House, audio);
     }
 
     //hide house's first card
@@ -496,11 +500,11 @@ void Game::Play(AudioManager& audio)
     {
         playerPos = pPlayer->getPos();
         playerVel = pPlayer->getVel();
-        audio.PlaySFX("media/sounds/SFX/Card_Dealt_2.ogg", 0.6f, 1.0f, -6.0f, 6.0f, playerPos, playerVel);
+        audio.PlaySFX("media/sounds/SFX/Card_Dealt_2.ogg", 0.4f, 1.0f, -2.0f, 6.0f, playerPos, playerVel);
         this_thread::sleep_for(chrono::seconds(2));
         cout << *pPlayer << endl;
     }
-    audio.PlaySFX("media/sounds/SFX/Card_Dealt_2.ogg", 0.6f, 1.0f, -6.0f, 6.0f, dealerPos, dealerVel);
+    audio.PlaySFX("media/sounds/SFX/Card_Dealt_2.ogg", 0.4f, 1.0f, -2.0f, 6.0f, dealerPos, dealerVel);
     this_thread::sleep_for(chrono::seconds(2));
     cout << m_House << endl;
 
@@ -589,6 +593,17 @@ int main()
     audio.SetMasterVolume(1.0f);
     audio.SetSongsVolume(0.6f);
     audio.SetSFXsVolume(1.0f);
+
+    FMOD_VECTOR posListener = { -1.2f, 0.5f, 0.0f };
+    FMOD_VECTOR velListener = { 0.0f, 0.0f, 0.0f };
+    FMOD_VECTOR forwardListener = { 1.0f, 0.0f, 0.0f };
+    FMOD_VECTOR upListener = { 0.0f, 1.0f, 0.0f };
+    audio.SetAudioListener( posListener, velListener, forwardListener, upListener );
+
+    FMOD_REVERB_PROPERTIES properties = FMOD_PRESET_CONCERTHALL;
+    FMOD_VECTOR position = { 0.0f, 0.0f, 0.0f };
+    audio.SetReverb( properties, position );
+
 
     // Load Music and SFX
     audio.LoadSong("media/sounds/songs/Casino_Ambience.ogg");
