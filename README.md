@@ -6,7 +6,8 @@ The Audio Manager class handles loading, playing and stopping songs and effects,
 
 
 
-* I am currently working in a new Audio Engine written in C++ (FMOD low-level API) with the following features:
+I am currently working in a new Audio Engine written in C++ (FMOD low-level API) with the following features:
     * All load, play, randomize, stop, fade in/out, reverb zones and dsp effects on channel groups basic functionalities &
     * A machine state that handles the AudioManager.Update() method. It will perform all the calls to the middleware API (so from game code only setting flags is needed, e.g. bIsStopped, bIsVirtual, bIsStopping...).
-    * In the future I plan to update this whole repository with an AAA-style Unreal Engine demo that uses my Audio Engine.
+    
+In the future I plan to update this whole repository with an AAA-style Unreal Engine demo that uses my Audio Engine.
