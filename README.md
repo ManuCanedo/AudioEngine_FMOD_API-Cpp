@@ -1,4 +1,4 @@
-# Audio Manager
+# Audio Engine
 
 This repository contains a Blackjack Game (no graphic display) that implements an Audio Engine built in from scratch in C++ using FMOD low-level API.
 
