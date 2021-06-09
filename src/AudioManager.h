@@ -13,15 +13,17 @@ public:
 
 	void LoadSFX(const std::string& path);
 	void LoadSong(const std::string& path);
-	void PlaySFX(const std::string& path, float minVolume, float maxVolume, float minPitch, float maxPitch, FMOD_VECTOR& position, FMOD_VECTOR& velocity);
+	void PlaySFX(const std::string& path, float minVolume, float maxVolume, float minPitch,
+		     float maxPitch, FMOD_VECTOR& position, FMOD_VECTOR& velocity);
 	void PlaySong(const std::string& path);
 	void StopSFXs();
 	void StopSongs();
 	void SetMasterVolume(float volume);
 	void SetSFXsVolume(float volume);
 	void SetSongsVolume(float volume);
-	void SetAudioListener(FMOD_VECTOR &position, FMOD_VECTOR &velocity, FMOD_VECTOR &forward, FMOD_VECTOR &up);
-	void SetReverb(FMOD_REVERB_PROPERTIES &properties, FMOD_VECTOR &position);
+	void SetAudioListener(FMOD_VECTOR& position, FMOD_VECTOR& velocity, FMOD_VECTOR& forward,
+			      FMOD_VECTOR& up);
+	void SetReverb(FMOD_REVERB_PROPERTIES& properties, FMOD_VECTOR& position);
 
 private:
 	typedef std::map<std::string, FMOD::Sound*> SoundMap;
@@ -44,4 +46,3 @@ private:
 };
 
 #endif // AudioManager_h_
-
